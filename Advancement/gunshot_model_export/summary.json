@@ -1,0 +1,15 @@
+{
+    "best_val_acc": 96.99942296595499,
+    "best_test_acc": 97.22863741339492,
+    "model_path": "/content/drive/MyDrive/gunshot_fpga/exports/gunshot_model_final.pth",
+    "confusion_matrix": [
+        [
+            847,
+            19
+        ],
+        [
+            29,
+            837
+        ]
+    ]
+}

@@ -1,0 +1,14 @@
+https://github.com/waynezv/FPGA_Ultrasound
+https://github.com/padhi499/Image-Classification-using-CNN-on-FPGA
+https://github.com/erosen/FPGA_Object_Tracking
+https://github.com/EscapeTHU/SGBM_FPGA
+https://github.com/Marco-Winzker/NN_Pattern_FPGA?tab=readme-ov-file
+https://www.h-brs.de/de/fpga-vision-lab
+https://github.com/Harish11-E/Real-Time-Heartbeat-Detection-on-FPGA-Using-CNN-for-Next-Gen-ECG-Healthcare-Devices
+https://github.com/salmaait7/ECG_Classification_on_FPGA_Xilinx
+https://github.com/muhammadaldacher/FPGA-Design-of-a-Digital-Analog-Clock-Display-using-Digilent-Basys3-Artix-7
+https://github.com/SanidhyaSaxena21/CNN_Accelerator_MNIST
+https://github.com/ATHARVA-TIWARI1234/CNN-Implementation-on-FPGA
+https://github.com/AshharShah/CNN_on_FPGA
+https://github.com/the-GreyShadow/Gunshot_Detection_System
+https://github.com/possoj/FPGA-SpacePose --Optionak
