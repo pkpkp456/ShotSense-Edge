@@ -1,0 +1,7 @@
+\beamer@sectionintoc {1}{Abstract}{3}{0}{1}
+\beamer@sectionintoc {2}{Introduction}{5}{0}{2}
+\beamer@sectionintoc {4}{Base Paper Overview}{8}{0}{3}
+\beamer@sectionintoc {5}{Model Advancements}{14}{0}{4}
+\beamer@sectionintoc {6}{Result}{19}{0}{5}
+\beamer@sectionintoc {7}{Implementation}{22}{0}{6}
+\beamer@sectionintoc {8}{Comparison With Base Paper}{25}{0}{7}

@@ -1,0 +1,427 @@
+\documentclass[10pt]{beamer}
+% \usepackage[utf8]{inputenc}
+% \usepackage{xeCJK}
+\usepackage{graphicx}
+\usepackage {hyperref}
+% \usepackage{utopia} %font utopia imported
+\usetheme{Madrid}
+\usecolortheme{default}
+
+% set colors
+\definecolor{myNewColorA}{RGB}{247, 128, 37}
+\definecolor{myNewcolorA}{RGB}{247, 128, 37}
+\definecolor{myNewcolorA}{RGB}{247, 128, 37}
+\setbeamercolor{block title}{bg=myNewColorA,fg=black}
+\setbeamercolor{block body}{bg=myNewColorA!20,fg=black}
+\setbeamercolor{block title alerted}{bg=black, fg=myNewColorA}
+\setbeamercolor{block body alerted}{bg=black!20, fg=black}
+
+\setbeamercolor*{block title example}{bg=myNewColorA, fg = black}
+\setbeamercolor*{block body example}{bg=myNewColorA!20, fg = black}
+\usebeamercolor[myNewColorA]{block title alerted}
+\setbeamercolor*{palette primary}{bg=myNewcolorA}
+\setbeamercolor*{palette secondary}{bg=myNewcolorA, fg = white}
+\setbeamercolor*{palette tertiary}{bg=myNewColorA, fg = white}
+\setbeamercolor*{titlelike}{fg=myNewColorA}
+\setbeamercolor*{title}{bg=myNewColorA}
+\setbeamercolor*{item}{fg=myNewColorA}
+\setbeamercolor*{caption name}{fg=myNewColorA}
+\usefonttheme{professionalfonts}
+\usepackage{natbib}
+\usepackage{hyperref}
+%------------------------------------------------------------
+\titlegraphic{\includegraphics[height=1.8cm]{1gR_eRFZ_400x400}} 
+\setbeamerfont{title}{size=\large}
+\setbeamerfont{subtitle}{size=\small}
+\setbeamerfont{author}{size=\small}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{institute}{size=\small}
+\title[RGUKT Nuzvid]{\textbf{Gunshot Detection System On Edge Devices} }
+% \subtitle{ Your Subtitle is Here}
+\author[]{ Under the guidance of \textbf{Dr. SHAIK RIYAZ HUSSAIN SIR}\\Prepared by:\\
+	\textbf{ P. Praveen Kumar - N210402 }}
+
+\institute[]{RAJIV GANDHI UNIVERSITY OF KNOWLEDGE TECHNOGIES, NUZVID}
+\date[\textcolor{white}{25 October 2025} ]
+{ 25 October 2025}
+
+%------------------------------------------------------------
+%This block of commands puts the table of contents at the 
+%beginning of each section and highlights the current section:
+%\AtBeginSection[]
+%{
+	%  \begin{frame}
+		%    \frametitle{Contents}
+		%    \tableofcontents[currentsection]
+		%  \end{frame}
+	%} 
+\AtBeginSection[]{ 
+	\begin{frame} 
+		\vfill 
+		\centering 
+		\begin{beamercolorbox}[sep= 8pt,center,shadow=true,rounded=true]{title} \usebeamerfont{title}\insertsectionhead\par
+		\end{beamercolorbox} \vfill \end{frame} }
+
+%------------------------------------------------------------
+\begin{document}
+	%The next statement creates the title page.
+	\frame{\titlepage}
+	\begin{frame}
+		\frametitle{Table of Contents}
+		\tableofcontents	
+	\end{frame}
+	%Abstract Section
+	%------------------------------------------------------------
+		%Abstract Section
+		%--------------------------------------------
+		% Introduction Section
+		%--------------------------------------------
+		\section{Introduction}
+		
+		% Slide 1: Introduction / Problem Background
+		\begin{frame}{Introduction}
+			\frametitle{Gunshot Detection — A Need for Intelligent Safety Systems}
+			\justifying
+			Public safety systems increasingly rely on AI-driven solutions for real-time threat detection.  
+			Gunshot detection is critical for:
+			\begin{itemize}
+				\item Rapid emergency response in urban and public spaces.
+				\item Accurate identification of firearm-related acoustic events.
+				\item Integration with surveillance networks for automated alert systems.
+			\end{itemize}
+			\vspace{0.2cm}
+			\textbf{Challenge:} Traditional sound-based systems often fail in noisy or cluttered environments.
+		\end{frame}
+		
+		%--------------------------------------------
+		% Slide 2: Motivation
+		\begin{frame}{Motivation}
+			\frametitle{Why Gunshot Detection on Edge Devices?}
+			\justifying
+			Cloud-based gunshot detection systems face latency and privacy challenges.  
+			To overcome these, lightweight models on embedded platforms like \textbf{Raspberry Pi} are ideal.
+			\begin{itemize}
+				\item Enables \textbf{real-time inference} close to the source.
+				\item Reduces dependency on high-speed internet.
+				\item Supports \textbf{scalable and low-power deployment}.
+				\item Enhances community safety through rapid local alerts.
+			\end{itemize}
+			\vspace{0.3cm}
+			\textbf{Goal:} Design an efficient and accurate AI-based gunshot detection model for edge deployment.
+		\end{frame}
+		
+	%-----------------------------------------
+	\section{Base Paper Overview}
+	%-----------------------------------------
+\begin{frame}{Base Paper Overview}
+	\frametitle{Real-time Gunshot Detection System}
+	\justifying
+	The base paper proposes a real-time gunshot detection system for enhanced public safety. It captures environmental audio, extracts features (MFCC or YAMNet), and uses neural network models for accurate gunshot classification suitable for edge devices like Raspberry Pi.
+	\begin{itemize}
+		\item Audio capture and feature extraction
+		\item ML-based gunshot classification (up to 96\% accuracy)
+		\item Optimized for real-time, low-power hardware
+	\end{itemize}
+\end{frame}
+
+	%----------------------------------
+	\begin{frame}{Key Contributions and Limitations of Base Paper}
+		\frametitle{Analysis of Base Paper}
+		\justifying
+		The base paper made significant contributions to real-time gunshot detection but also had limitations that inspired our enhancements:
+		\begin{itemize}
+			\item \textbf{Contributions:}
+			\begin{itemize}
+				\item Evaluation of multiple hardware platforms for real-time inference feasibility.
+				\item Consideration of noisy environments and confounding audio events.
+			\end{itemize}
+			\item \textbf{Limitations:}
+			\begin{itemize}
+				\item Hardware optimization and low-latency inference were limited.
+				\item Model compression techniques like pruning or quantization were not explored.
+				\item Lightweight embedding-only inference for resource-constrained devices was not implemented.
+				\item Model was trained on small dataset only leading to  overfitttig.
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+	%------------------------------------------------------
+\begin{frame}{Base Paper Implementation}
+	\frametitle{Gunshot Detection System Overview}
+	\justifying
+	The paper presents a real-time gunshot detection system integrated with camera surveillance. Audio data is pre-processed to improve model accuracy.
+	\begin{itemize}
+		\item Gunshot sounds from various firearms (AK-47, MP5, M16, etc.), resampled to 1-sec 22050 Hz and filtered for low-energy noise, yielding 3210 samples.
+		\item Non-gunshot sounds (thunder, fireworks, drums, doors, clapping, barks) collected from YouTube, totaling 7758 samples after preprocessing.
+	\end{itemize}
+\end{frame}
+
+	%---------------------------------
+\begin{frame}{Base Paper Implementation (Model Training)}
+	\frametitle{Modeling Approaches}
+	\justifying
+	Two ML approaches were used for gunshot detection:
+	\begin{enumerate}
+		\item \textbf{YAMNet Transfer Learning:} 
+		\begin{itemize}
+			\item 1024-dim YAMNet embeddings as input.
+			\item Three-layer network (512-unit dense + 2-output).
+			\item 60/20/20 train/val/test split, 3200 samples/group.
+			\item EarlyStopping, trained for 5 epochs.
+		\end{itemize}
+		\item \textbf{MFCC-Based LSTM:} 
+		\begin{itemize}
+			\item Audio → MFCC features.
+			\item LSTM: 128-unit LSTM → Flatten → Dense layers (128, 64) → 9-output.
+			\item 50 epochs, batch size 72, SparseCategoricalCrossentropy loss, EarlyStopping.
+		\end{itemize}
+	\end{enumerate}
+\end{frame}
+%---------------------------------------------
+% --- Slide 1: YAMNet Transfer Learning Flow ---
+\begin{frame}{YAMNet Transfer Learning Flow}
+	\centering
+	\includegraphics[width=0.9\textwidth]{yamnet_flow.png}
+\end{frame}
+
+% --- Slide 2: MFCC-Based LSTM Flow ---
+\begin{frame}{MFCC-Based LSTM Flow}
+	\centering
+	\includegraphics[width=0.9\textwidth]{mfcc_lstm_flow.png}
+\end{frame}
+
+	%----------------------------------------------
+	\begin{frame}{Base Paper Results}
+		\frametitle{Gunshot Detection Model Performance}
+		\justifying
+		\textbf{A. TensorFlow YAMNet Transfer Learning Model:}
+		\begin{itemize}
+		
+			\item Test set: Loss = 0.0490, Accuracy = 98.75\%
+			\item Confusion Matrix (1280 samples): 
+			\textbf{Gunshot: 637/640 correct}, \textbf{Non-gunshot: 635/640 correct}  
+			\item Minimal misclassification demonstrates strong predictive power for real-world deployment.
+		\end{itemize}
+		
+		\textbf{B. MFCC-Based LSTM Model:}
+		\begin{itemize}
+		
+			\item Test set: Loss = 0.1676, Accuracy = 96.95\%
+			\item Confusion Matrix (1280 samples): 
+			\textbf{Gunshot: 623/640 correct}, \textbf{Non-gunshot: 618/640 correct}
+			\item High accuracy indicates strong generalization for real-world use.
+		\end{itemize}
+	\end{frame}
+	\section{Results Obtained}
+	%--------------------------------
+	\begin{frame}{Final Evaluation of Gunshot Detection Models}
+		\frametitle{Test Performance Comparison}
+		\justifying
+		Both models achieved high accuracy on training, validation, and test sets. Final evaluation results are as follows:
+		
+		\begin{columns}[T, onlytextwidth]
+			\column{0.48\textwidth}
+			\textbf{YAMNet Transfer Learning}
+			\begin{itemize}
+			
+				\item Test Loss: 0.0384
+				\item Test Accuracy: 98.52\%
+				\item Confusion Matrix:
+				\[
+				\begin{bmatrix}
+					636 & 4 \\
+					10 & 630
+				\end{bmatrix}
+				\]
+			\end{itemize}
+			
+			\column{0.48\textwidth}
+			\textbf{MFCC-Based LSTM}
+			\begin{itemize}
+				\item Test Loss: 0.1706
+				\item Test Accuracy: 96.04\%
+				\item Confusion Matrix:
+				\[
+				\begin{bmatrix}
+					619 & 21 \\
+					23 & 617
+				\end{bmatrix}
+				\]
+			\end{itemize}
+		\end{columns}
+	\end{frame}
+	%--------------------------------------------------
+\begin{frame}{MFCC vs YAMNet Feature Matrices}
+	\begin{columns}
+		% Left column: MFCC
+		\column{0.5\textwidth}
+		\centering
+		\textbf{MFCC\_Matrix}
+		\vspace{0.2cm}
+		
+		\includegraphics[width=\textwidth]{MFCC_Matrix.png}
+		\vspace{0.2cm}
+		
+		\small Spectral–temporal representation extracted using MFCC features.
+		
+		% Right column: YAMNet
+		\column{0.5\textwidth}
+		\centering
+		\textbf{YAMNet\_Matrix}
+		\vspace{0.2cm}
+		
+		\includegraphics[width=\textwidth]{YAMNet_Matrix.png}
+		\vspace{0.2cm}
+		
+		\small Deep audio embeddings learned by YAMNet pretrained model.
+	\end{columns}
+	
+	\vspace{0.4cm}
+	\justifying
+	\small
+	The MFCC matrix captures handcrafted frequency features, while YAMNet embeddings
+	provide high-level semantic representations learned from large-scale audio datasets.
+\end{frame}
+	%--------------------------------
+%--------------------------------
+\begin{frame}{Model Performance Comparison}
+	\frametitle{YAMNet vs MFCC-LSTM Evaluation Summary}
+	\centering
+	\vspace{-0.3cm}
+	\scriptsize % makes the table fit nicely on one slide
+	\renewcommand{\arraystretch}{1.25}
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{|l|c|c|}
+		\hline
+		\textbf{Metric} & \textbf{YAMNet Transfer Learning} & \textbf{MFCC-Based LSTM} \\
+		\hline
+		Test Loss & 0.0384 & 0.1706 \\
+		\hline
+		Test Accuracy & 98.52\% & 96.04\% \\
+		\hline
+		Gunshot Correct (out of 640) & 636 & 619 \\
+		\hline
+		Non-Gunshot Correct (out of 640) & 630 & 617 \\
+		\hline
+		Total Misclassifications & 14 & 44 \\
+		\hline
+		Inference Complexity & Low (Dense only) & Moderate (LSTM + Dense) \\
+		\hline
+		FPGA Deployment Suitability & \textbf{High} & Medium \\
+		\hline
+	\end{tabular}
+	
+	\vspace{0.3cm}
+	\normalsize
+	\textbf{Conclusion:} YAMNet-based model achieves higher accuracy and efficiency for real-time deployment.
+\end{frame}
+
+	
+	%-----------------------------------------------
+%--------------------------------
+%--------------------------------
+
+
+
+%--------------------------------
+%--------------------------------
+\begin{frame}{Training Accuracy and Loss — MFCC + LSTM Model}
+	\frametitle{MFCC + LSTM Model Performance}
+	\justifying
+	The MFCC-LSTM model achieved strong accuracy, though with slightly higher loss and slower convergence.
+	\vspace{0.3cm}
+	
+	\centering
+	\textbf{Accuracy and Loss Curves} \\
+	\includegraphics[width=0.8\textwidth]{accuracy_curve_MFCC.png}
+	
+	\vspace{0.3cm}
+	\textbf{Final Test Accuracy:} 96.04\% \quad | \quad \textbf{Test Loss:} 0.1706
+\end{frame}
+
+	%--------------------------------------------
+	\section{Model Advancements}
+	%-----------------------------------------------
+%--------------------------------
+% Slide 1: Model Description
+\begin{frame}{Proposed Advanced Model — CNN14 + BiLSTM + Attention}
+	\frametitle{Model Architecture Overview}
+	\justifying
+	\textbf{Goal:} Enhance gunshot detection by combining spectral–temporal learning with attention mechanisms.  
+	\vspace{0.3cm}
+	
+	\textbf{Model Highlights:}
+	\begin{itemize}
+		\item \textbf{CNN14 (PANNs):} Extracts deep log-Mel spectral embeddings.
+		\item \textbf{BiLSTM:} Captures forward–backward temporal dependencies.
+		\item \textbf{Attention Layer:} Focuses on key temporal frames, suppresses silence or background noise.
+		\item \textbf{Dense Head:} Fully connected layers with 128 and 64 ReLU units + dropout for regularization.
+		\item \textbf{Output Layer:} Softmax activation producing Gunshot / Non-Gunshot classification.
+	\end{itemize}
+\end{frame}
+
+%--------------------------------
+% Slide 2: Model Architecture Diagram
+\begin{frame}{Proposed Model Architecture}
+	\centering
+	\vspace{0.4cm}
+	\includegraphics[width=0.85\textwidth,height=6cm,keepaspectratio]{architecture_model.png}
+	
+	\vspace{0.3cm}
+	{\scriptsize CNN14 → BiLSTM → Attention → Dense → Output}
+\end{frame}
+
+
+%----------------------------------------------------------
+%-------------------------------------------------
+
+
+%-----------------------------------------------
+% REFERENCES SLIDE ADDED
+%-----------------------------------------------
+\section{References}
+\begin{frame}[allowframebreaks]
+	\frametitle{References}
+	\justifying
+	\small
+	\begin{thebibliography}{99}
+		
+		\bibitem{Xiong2023}
+		Xinzhang Xiong,  
+		\href{run : 20230916_GunshotDetection_XIONG_XINZHANG.pdf}%
+		{“Real-time Gunshot Detection System Integration to Camera Surveillance System”},  
+		Pennsylvania State University,  
+		State College, USA.  
+		Email: \href{mailto:xpx5059@psu.edu}{xpx5059@psu.edu}
+		
+		\bibitem{YAMNet}
+		Google Research,  
+		\textit{“YAMNet: Pretrained Audio Event Classification Network”},  
+		Available at: \url{https://github.com/tensorflow/models/tree/master/research/audioset/yamnet}
+		
+		\bibitem{PANNs}
+		Kong, Qiuqiang, et al.  
+		\textit{“PANNs: Large-Scale Pretrained Audio Neural Networks for Audio Pattern Recognition”},  
+		IEEE/ACM Transactions on Audio, Speech, and Language Processing, 2020.
+		
+		\bibitem{MFCC}
+		T. Giannakopoulos,  
+		\textit{“Audio Feature Extraction using MFCCs for Environmental Sound Classification”},  
+		Elsevier, 2015.
+		
+		\bibitem{EdgeAI}
+		S. Han, H. Mao, and W. J. Dally,  
+		\textit{“Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding”},  
+		ICLR, 2016.
+		
+	\end{thebibliography}
+\end{frame}
+
+%-----------------------------------------------
+
+
+\section*{Acknowledgement}  
+\begin{frame}
+\textcolor{myNewColorA}{\Huge{\centerline{Thank you!}}}
+\end{frame}
+
+\end{document}
