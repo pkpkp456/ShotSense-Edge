@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.21)  25 OCT 2025 12:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.21)  4 DEC 2025 19:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -852,7 +852,7 @@ See the natbib package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.91 ...mand\NAT@force@numbers{}\NAT@force@numbers
+l.89 ...mand\NAT@force@numbers{}\NAT@force@numbers
                                                   
 Check the bibliography entries for non-compliant syntax,
 or select author-year BibTeX style, e.g. plainnat
@@ -1214,7 +1214,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-<accuracy_curve_MFCC.png, id=584, 867.24pt x 361.35pt>
+<accuracy_curve_MFCC.png, id=583, 867.24pt x 361.35pt>
 File: accuracy_curve_MFCC.png Graphic file (type png)
 <use accuracy_curve_MFCC.png>
 Package pdftex.def Info: accuracy_curve_MFCC.png  used on input line 339.
@@ -1244,7 +1244,7 @@ and I'll forget about whatever was undefined.
 [20
 
 ]
-<architecture_model.png, id=677, 426.84468pt x 459.21562pt>
+<architecture_model.png, id=676, 426.84468pt x 459.21562pt>
 File: architecture_model.png Graphic file (type png)
 <use architecture_model.png>
 Package pdftex.def Info: architecture_model.png  used on input line 371.
@@ -1300,39 +1300,35 @@ Package rerunfilecheck Info: File `Prasentation_Mid_Term.out' has not changed.
 (rerunfilecheck)             Checksum: 3C2124CDC103F9043F0A15E3EC6EA8D4;813.
  ) 
 Here is how much of TeX's memory you used:
- 22411 strings out of 468080
- 453866 string characters out of 5404596
+ 22408 strings out of 468080
+ 453758 string characters out of 5404596
  807258 words of memory out of 5000000
- 50559 multiletter control sequences out of 15000+600000
+ 50557 multiletter control sequences out of 15000+600000
  637340 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,123p,419b,621s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{Navigation25} has been referenced but does not exis
-t, replaced by a fixed one
-
- <C:\Users\inavarS\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcss
-0700.pk> <C:\Users\inavarS\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi
-600\tcss0900.pk><D:/WpSystem/S-1-5-21-3980317125-2991037478-2579826307-1003/App
-Data/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/WpSyst
-em/S-1-5-21-3980317125-2991037478-2579826307-1003/AppData/Local/Packages/MikTex
-/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/WpSystem/S-1-5-21-3980317125-2991
-037478-2579826307-1003/AppData/Local/Packages/MikTex/fonts/type1/public/amsfont
-s/cm/cmss10.pfb><D:/WpSystem/S-1-5-21-3980317125-2991037478-2579826307-1003/App
-Data/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmss12.pfb><D:/WpSyst
-em/S-1-5-21-3980317125-2991037478-2579826307-1003/AppData/Local/Packages/MikTex
-/fonts/type1/public/amsfonts/cm/cmss17.pfb><D:/WpSystem/S-1-5-21-3980317125-299
-1037478-2579826307-1003/AppData/Local/Packages/MikTex/fonts/type1/public/amsfon
-ts/cm/cmss8.pfb><D:/WpSystem/S-1-5-21-3980317125-2991037478-2579826307-1003/App
-Data/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmss9.pfb><D:/WpSyste
-m/S-1-5-21-3980317125-2991037478-2579826307-1003/AppData/Local/Packages/MikTex/
-fonts/type1/public/amsfonts/cm/cmssbx10.pfb><D:/WpSystem/S-1-5-21-3980317125-29
+ <C:\Users\inavarS\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tc
+ss0700.pk> <C:\Users\inavarS\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
+pi600\tcss0900.pk><D:/WpSystem/S-1-5-21-3980317125-2991037478-2579826307-1003/A
+ppData/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/WpSy
+stem/S-1-5-21-3980317125-2991037478-2579826307-1003/AppData/Local/Packages/MikT
+ex/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/WpSystem/S-1-5-21-3980317125-29
 91037478-2579826307-1003/AppData/Local/Packages/MikTex/fonts/type1/public/amsfo
-nts/cm/cmssi9.pfb><D:/WpSystem/S-1-5-21-3980317125-2991037478-2579826307-1003/A
-ppData/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on Prasentation_Mid_Term.pdf (24 pages, 1738236 bytes).
+nts/cm/cmss10.pfb><D:/WpSystem/S-1-5-21-3980317125-2991037478-2579826307-1003/A
+ppData/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmss12.pfb><D:/WpSy
+stem/S-1-5-21-3980317125-2991037478-2579826307-1003/AppData/Local/Packages/MikT
+ex/fonts/type1/public/amsfonts/cm/cmss17.pfb><D:/WpSystem/S-1-5-21-3980317125-2
+991037478-2579826307-1003/AppData/Local/Packages/MikTex/fonts/type1/public/amsf
+onts/cm/cmss8.pfb><D:/WpSystem/S-1-5-21-3980317125-2991037478-2579826307-1003/A
+ppData/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmss9.pfb><D:/WpSys
+tem/S-1-5-21-3980317125-2991037478-2579826307-1003/AppData/Local/Packages/MikTe
+x/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><D:/WpSystem/S-1-5-21-3980317125-
+2991037478-2579826307-1003/AppData/Local/Packages/MikTex/fonts/type1/public/ams
+fonts/cm/cmssi9.pfb><D:/WpSystem/S-1-5-21-3980317125-2991037478-2579826307-1003
+/AppData/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on Prasentation_Mid_Term.pdf (24 pages, 1738187 bytes).
 PDF statistics:
- 873 PDF objects out of 1000 (max. 8388607)
- 62 named destinations out of 1000 (max. 500000)
+ 872 PDF objects out of 1000 (max. 8388607)
+ 61 named destinations out of 1000 (max. 500000)
  345 words of extra memory for PDF output out of 10000 (max. 10000000)
 

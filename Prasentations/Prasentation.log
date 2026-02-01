@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.21)  24 OCT 2025 18:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.21)  6 DEC 2025 11:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -841,7 +841,23 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 ges\MikTex\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count359
-) (Prasentation.aux)
+) (Prasentation.aux
+
+! Package natbib Error: Bibliography not compatible with author-year citations.
+
+(natbib)                Press <return> to continue in numerical citation style.
+
+
+See the natbib package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.129 ...and\NAT@force@numbers{}\NAT@force@numbers
+                                                  
+Check the bibliography entries for non-compliant syntax,
+or select author-year BibTeX style, e.g. plainnat
+
+)
 \openout1 = `Prasentation.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 66.
@@ -987,10 +1003,34 @@ If that doesn't work, type  X <return>  to quit.
 [4
 
 ]
+! Undefined control sequence.
+\beamer@doifinframe ...afety Systems} \justifying 
+                                                  Public safety systems incr...
+l.118 \end{frame}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
 
 [5
 
 ]
+! Undefined control sequence.
+\beamer@doifinframe ...Edge Devices?} \justifying 
+                                                  Cloud-based gunshot detect...
+l.135 \end{frame}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
 
 [6
 
@@ -999,14 +1039,26 @@ If that doesn't work, type  X <return>  to quit.
 [7
 
 ]
+! Undefined control sequence.
+\beamer@doifinframe ...ection System} \justifying 
+                                                  The base paper proposes a ...
+l.149 \end{frame}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
 
 [8
 
 ]
 ! Undefined control sequence.
-\beamer@doifinframe ...ection System} \justifying 
-                                                  The base paper presents an...
-l.168 \end{frame}
+\beamer@doifinframe ...of Base Paper} \justifying 
+                                                  The base paper made signif...
+l.170 \end{frame}
                  
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1020,9 +1072,9 @@ and I'll forget about whatever was undefined.
 
 ]
 ! Undefined control sequence.
-\beamer@doifinframe ...of Base Paper} \justifying 
-                                                  The base paper made signif...
-l.188 \end{frame}
+\beamer@doifinframe ...stem Overview} \justifying 
+                                                  The paper presents a real-...
+l.180 \end{frame}
                  
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1036,9 +1088,9 @@ and I'll forget about whatever was undefined.
 
 ]
 ! Undefined control sequence.
-\beamer@doifinframe ...stem Overview} \justifying 
-                                                  The base paper focuses on ...
-l.203 \end{frame}
+\beamer@doifinframe ...ng Approaches} \justifying 
+                                                  Two ML approaches were use...
+l.202 \end{frame}
                  
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1051,26 +1103,34 @@ and I'll forget about whatever was undefined.
 [11
 
 ]
-! Undefined control sequence.
-\beamer@doifinframe ...ng Approaches} \justifying 
-                                                  Two distinct machine learn...
-l.225 \end{frame}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+<yamnet_flow.png, id=420, 1027.84pt x 1027.84pt>
+File: yamnet_flow.png Graphic file (type png)
+<use yamnet_flow.png>
+Package pdftex.def Info: yamnet_flow.png  used on input line 208.
+(pdftex.def)             Requested size: 309.77368pt x 309.7659pt.
+
+Overfull \vbox (71.47746pt too high) detected at line 208
+ []
 
 
 
 [12
 
-]
+ <./yamnet_flow.png (PNG copy)>]
+<mfcc_lstm_flow.png, id=448, 770.88pt x 472.76625pt>
+File: mfcc_lstm_flow.png Graphic file (type png)
+<use mfcc_lstm_flow.png>
+Package pdftex.def Info: mfcc_lstm_flow.png  used on input line 214.
+(pdftex.def)             Requested size: 309.77368pt x 189.97601pt.
+
+
+[13
+
+ <./mfcc_lstm_flow.png>]
 ! Undefined control sequence.
-\beamer@doifinframe ...ance Overview} \justifying 
-                                                  The training and validatio...
-l.250 \end{frame}
+\beamer@doifinframe ...l Performance} \justifying 
+                                                  \textbf {A. TensorFlow YAM...
+l.237 \end{frame}
                  
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1078,43 +1138,104 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-<Yamnet_Accuracy.png, id=448, 570.2103pt x 354.123pt>
-File: Yamnet_Accuracy.png Graphic file (type png)
-<use Yamnet_Accuracy.png>
-Package pdftex.def Info: Yamnet_Accuracy.png  used on input line 250.
-(pdftex.def)             Requested size: 165.21228pt x 102.60117pt.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 250
+
+
+[14
+
+]
+
+[15
+
+]
+! Undefined control sequence.
+\beamer@doifinframe ...ce Comparison} \justifying 
+                                                  Both models achieved high ...
+l.275 \end{frame}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 275
 .
 
 (D:\WpSystem\S-1-5-21-3980317125-2991037478-2579826307-1003\AppData\Local\Packa
 ges\MikTex\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 250
+LaTeX Font Info:    Trying to load font information for U+msb on input line 275
 .
 
 (D:\WpSystem\S-1-5-21-3980317125-2991037478-2579826307-1003\AppData\Local\Packa
 ges\MikTex\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<accuracy_curve_MFCC.png, id=450, 867.24pt x 361.35pt>
+
+[16
+
+]
+<MFCC_Matrix.png, id=571, 281.853pt x 209.583pt>
+File: MFCC_Matrix.png Graphic file (type png)
+<use MFCC_Matrix.png>
+Package pdftex.def Info: MFCC_Matrix.png  used on input line 307.
+(pdftex.def)             Requested size: 172.09766pt x 127.97334pt.
+<YAMNet_Matrix.png, id=572, 301.3659pt x 209.583pt>
+File: YAMNet_Matrix.png Graphic file (type png)
+<use YAMNet_Matrix.png>
+Package pdftex.def Info: YAMNet_Matrix.png  used on input line 307.
+(pdftex.def)             Requested size: 172.09766pt x 119.6842pt.
+
+! Undefined control sequence.
+\beamer@doifinframe ...vspace {0.4cm} \justifying 
+                                                  \small The MFCC matrix cap...
+l.307 \end{frame}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+
+[17
+
+ <./MFCC_Matrix.png> <./YAMNet_Matrix.png>]
+
+[18
+
+]
+! Undefined control sequence.
+\beamer@doifinframe ...l Performance} \justifying 
+                                                  The MFCC-LSTM model achiev...
+l.363 \end{frame}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+<accuracy_curve_MFCC.png, id=628, 867.24pt x 361.35pt>
 File: accuracy_curve_MFCC.png Graphic file (type png)
 <use accuracy_curve_MFCC.png>
-Package pdftex.def Info: accuracy_curve_MFCC.png  used on input line 250.
-(pdftex.def)             Requested size: 165.21228pt x 68.83365pt.
+Package pdftex.def Info: accuracy_curve_MFCC.png  used on input line 363.
+(pdftex.def)             Requested size: 275.3573pt x 114.7301pt.
 
 
-[13
+[19
 
- <./Yamnet_Accuracy.png> <./accuracy_curve_MFCC.png>]
+ <./accuracy_curve_MFCC.png>]
 
-[14
+[20
 
 ]
 ! Undefined control sequence.
 <recently read> \justifying 
                             
-l.282 \end{frame}
+l.402 \end{frame}
                  
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1122,20 +1243,20 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-<architecture_model.png, id=518, 426.84468pt x 459.21562pt>
+<architecture_model.png, id=695, 426.84468pt x 459.21562pt>
 File: architecture_model.png Graphic file (type png)
 <use architecture_model.png>
-Package pdftex.def Info: architecture_model.png  used on input line 282.
+Package pdftex.def Info: architecture_model.png  used on input line 402.
 (pdftex.def)             Requested size: 121.65851pt x 130.88481pt.
 
 
-[15
+[21
 
  <./architecture_model.png>]
 ! Undefined control sequence.
 <recently read> \justifying 
                             
-l.322 \end{frame}
+l.442 \end{frame}
                  
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1145,7 +1266,7 @@ and I'll forget about whatever was undefined.
 
 
 
-[16
+[22
 
 ]
 
@@ -1156,25 +1277,25 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.368 \end{frame}
+l.488 \end{frame}
                  
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
-<Pre_processing_Adv.png, id=577, 474.27188pt x 661.72218pt>
+<Pre_processing_Adv.png, id=754, 474.27188pt x 661.72218pt>
 File: Pre_processing_Adv.png Graphic file (type png)
 <use Pre_processing_Adv.png>
-Package pdftex.def Info: Pre_processing_Adv.png  used on input line 368.
+Package pdftex.def Info: Pre_processing_Adv.png  used on input line 488.
 (pdftex.def)             Requested size: 81.56593pt x 113.8039pt.
 
 
-[17
+[23
 
  <./Pre_processing_Adv.png>]
 ! Undefined control sequence.
 <recently read> \justifying 
                             
-l.405 \end{frame}
+l.525 \end{frame}
                  
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1185,7 +1306,7 @@ and I'll forget about whatever was undefined.
 ! Misplaced alignment tab character &.
 \beamer@doifinframe ...edding-only → fewer ops &
                                                    memory. \item Deployable ...
-l.405 \end{frame}
+l.525 \end{frame}
                  
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -1195,106 +1316,9 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 
-Underfull \hbox (badness 10000) detected at line 405
+Underfull \hbox (badness 10000) detected at line 525
 [][][][][][][][][]
  []
-
-
-
-[18
-
-]
-
-[19
-
-]
-! Too many }'s.
-l.409 	\section{Result}}
-                        
-You've closed more groups than you opened.
-Such booboos are generally harmless, so keep going.
-
-! Undefined control sequence.
-<recently read> \justifying 
-                            
-l.432 \end{frame}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-
-[20
-
-]
-! Undefined control sequence.
-<recently read> \justifying 
-                            
-l.468 \end{frame}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-<acc vs loss_adv.png, id=698, 570.933pt x 354.123pt>
-File: acc vs loss_adv.png Graphic file (type png)
-<use acc vs loss_adv.png>
-Package pdftex.def Info: acc vs loss_adv.png  used on input line 468.
-(pdftex.def)             Requested size: 146.79256pt x 91.04854pt.
-<confusion_matrix.png, id=699, 443.40656pt x 342.5297pt>
-File: confusion_matrix.png Graphic file (type png)
-<use confusion_matrix.png>
-Package pdftex.def Info: confusion_matrix.png  used on input line 468.
-(pdftex.def)             Requested size: 117.86076pt x 91.04694pt.
-
-
-[21
-
- <./acc vs loss_adv.png> <./confusion_matrix.png>]
-
-[22
-
-]
-! Undefined control sequence.
-<recently read> \justifying 
-                            
-l.498 \end{frame}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-<Raspberry Pi Workflow.png, id=766, 770.88pt x 164.86594pt>
-File: Raspberry Pi Workflow.png Graphic file (type png)
-<use Raspberry Pi Workflow.png>
-Package pdftex.def Info: Raspberry Pi Workflow.png  used on input line 498.
-(pdftex.def)             Requested size: 292.56104pt x 62.56918pt.
-
-Overfull \vbox (5.3323pt too high) detected at line 498
- []
-
-
-
-[23
-
- <./Raspberry Pi Workflow.png>]
-! Undefined control sequence.
-<recently read> \justifying 
-                            
-l.523 \end{frame}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
 
 
 
@@ -1306,7 +1330,104 @@ and I'll forget about whatever was undefined.
 
 ]
 ! Too many }'s.
-l.527 	\section{Comparison With Base Paper}}
+l.529 	\section{Result}}
+                        
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+! Undefined control sequence.
+<recently read> \justifying 
+                            
+l.552 \end{frame}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+
+[26
+
+]
+! Undefined control sequence.
+<recently read> \justifying 
+                            
+l.588 \end{frame}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+<acc vs loss_adv.png, id=874, 570.933pt x 354.123pt>
+File: acc vs loss_adv.png Graphic file (type png)
+<use acc vs loss_adv.png>
+Package pdftex.def Info: acc vs loss_adv.png  used on input line 588.
+(pdftex.def)             Requested size: 146.79256pt x 91.04854pt.
+<confusion_matrix.png, id=875, 443.40656pt x 342.5297pt>
+File: confusion_matrix.png Graphic file (type png)
+<use confusion_matrix.png>
+Package pdftex.def Info: confusion_matrix.png  used on input line 588.
+(pdftex.def)             Requested size: 117.86076pt x 91.04694pt.
+
+
+[27
+
+ <./acc vs loss_adv.png> <./confusion_matrix.png>]
+
+[28
+
+]
+! Undefined control sequence.
+<recently read> \justifying 
+                            
+l.618 \end{frame}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+<Raspberry Pi Workflow.png, id=942, 770.88pt x 164.86594pt>
+File: Raspberry Pi Workflow.png Graphic file (type png)
+<use Raspberry Pi Workflow.png>
+Package pdftex.def Info: Raspberry Pi Workflow.png  used on input line 618.
+(pdftex.def)             Requested size: 292.56104pt x 62.56918pt.
+
+Overfull \vbox (5.3323pt too high) detected at line 618
+ []
+
+
+
+[29
+
+ <./Raspberry Pi Workflow.png>]
+! Undefined control sequence.
+<recently read> \justifying 
+                            
+l.643 \end{frame}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+
+[30
+
+]
+
+[31
+
+]
+! Too many }'s.
+l.647 	\section{Comparison With Base Paper}}
                                             
 You've closed more groups than you opened.
 Such booboos are generally harmless, so keep going.
@@ -1314,7 +1435,7 @@ Such booboos are generally harmless, so keep going.
 ! Undefined control sequence.
 <recently read> \justifying 
                             
-l.563 \end{frame}
+l.683 \end{frame}
                  
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1325,7 +1446,7 @@ and I'll forget about whatever was undefined.
 ! Misplaced alignment tab character &.
 \beamer@doifinframe ...devices; faster inference &
                                                    low memory \end {itemize}...
-l.563 \end{frame}
+l.683 \end{frame}
                  
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -1336,13 +1457,13 @@ might try typing `S' now just to see what is salvageable.
 
 
 
-[26
+[32
 
 ]
 ! Undefined control sequence.
 <recently read> \justifying 
                             
-l.608 \end{frame}
+l.728 \end{frame}
                  
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1358,7 +1479,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.608 \end{frame}
+l.728 \end{frame}
                  
 You may provide a definition with
 \DeclareUnicodeCharacter 
@@ -1371,7 +1492,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.608 \end{frame}
+l.728 \end{frame}
                  
 You may provide a definition with
 \DeclareUnicodeCharacter 
@@ -1384,20 +1505,20 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.608 \end{frame}
+l.728 \end{frame}
                  
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
 
-[27
+[33
 
 ]
 ! Undefined control sequence.
 <recently read> \justifying 
                             
-l.627 \end{frame}
+l.747 \end{frame}
                  
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1407,13 +1528,13 @@ and I'll forget about whatever was undefined.
 
 
 
-[28
+[34
 
 ]
 ! Undefined control sequence.
 <recently read> \justifying 
                             
-l.646 \end{frame}
+l.766 \end{frame}
                  
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1423,11 +1544,35 @@ and I'll forget about whatever was undefined.
 
 
 
-[29
+[35
 
 ]
 
-[30
+[36
+
+]
+! Undefined control sequence.
+<inserted text> ...title {References} \justifying 
+                                                  \small \begin {thebibliogr...
+l.807 \end{frame}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\translate ' on input line 807.
+
+
+
+[37
+
+]
+
+[38
 
 ]
 \tf@nav=\write6
@@ -1445,36 +1590,43 @@ LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
  ***********
 Package rerunfilecheck Info: File `Prasentation.out' has not changed.
-(rerunfilecheck)             Checksum: C018DBCD334018E9735F00605D6DC703;1055.
+(rerunfilecheck)             Checksum: 7A290DB85C9CE098515A357817E568D1;1163.
  ) 
 Here is how much of TeX's memory you used:
- 22414 strings out of 468080
- 453299 string characters out of 5404596
- 813139 words of memory out of 5000000
- 50554 multiletter control sequences out of 15000+600000
- 637219 words of font info for 75 fonts, out of 8000000 for 9000
+ 22521 strings out of 468080
+ 455178 string characters out of 5404596
+ 812216 words of memory out of 5000000
+ 50637 multiletter control sequences out of 15000+600000
+ 638037 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,123p,410b,767s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\inavarS\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tc
-ss0900.pk> <C:\Users\inavarS\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
-pi600\tcss0700.pk> <C:\Users\inavarS\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
-pen/ec/dpi600\tcss1000.pk><D:/WpSystem/S-1-5-21-3980317125-2991037478-257982630
-7-1003/AppData/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmss10.pfb>
+ss0700.pk> <C:\Users\inavarS\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
+pi600\tcss1000.pk> <C:\Users\inavarS\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
+pen/ec/dpi600\tcss0900.pk><D:/WpSystem/S-1-5-21-3980317125-2991037478-257982630
+7-1003/AppData/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmex10.pfb>
 <D:/WpSystem/S-1-5-21-3980317125-2991037478-2579826307-1003/AppData/Local/Packa
-ges/MikTex/fonts/type1/public/amsfonts/cm/cmss12.pfb><D:/WpSystem/S-1-5-21-3980
-317125-2991037478-2579826307-1003/AppData/Local/Packages/MikTex/fonts/type1/pub
-lic/amsfonts/cm/cmss17.pfb><D:/WpSystem/S-1-5-21-3980317125-2991037478-25798263
-07-1003/AppData/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmss8.pfb>
-<D:/WpSystem/S-1-5-21-3980317125-2991037478-2579826307-1003/AppData/Local/Packa
-ges/MikTex/fonts/type1/public/amsfonts/cm/cmss9.pfb><D:/WpSystem/S-1-5-21-39803
+ges/MikTex/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/WpSystem/S-1-5-21-39803
 17125-2991037478-2579826307-1003/AppData/Local/Packages/MikTex/fonts/type1/publ
-ic/amsfonts/cm/cmssbx10.pfb><D:/WpSystem/S-1-5-21-3980317125-2991037478-2579826
-307-1003/AppData/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmssi10.p
+ic/amsfonts/cm/cmss10.pfb><D:/WpSystem/S-1-5-21-3980317125-2991037478-257982630
+7-1003/AppData/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmss12.pfb>
+<D:/WpSystem/S-1-5-21-3980317125-2991037478-2579826307-1003/AppData/Local/Packa
+ges/MikTex/fonts/type1/public/amsfonts/cm/cmss17.pfb><D:/WpSystem/S-1-5-21-3980
+317125-2991037478-2579826307-1003/AppData/Local/Packages/MikTex/fonts/type1/pub
+lic/amsfonts/cm/cmss8.pfb><D:/WpSystem/S-1-5-21-3980317125-2991037478-257982630
+7-1003/AppData/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmss9.pfb><
+D:/WpSystem/S-1-5-21-3980317125-2991037478-2579826307-1003/AppData/Local/Packag
+es/MikTex/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><D:/WpSystem/S-1-5-21-398
+0317125-2991037478-2579826307-1003/AppData/Local/Packages/MikTex/fonts/type1/pu
+blic/amsfonts/cm/cmssi10.pfb><D:/WpSystem/S-1-5-21-3980317125-2991037478-257982
+6307-1003/AppData/Local/Packages/MikTex/fonts/type1/public/amsfonts/cm/cmssi9.p
 fb><D:/WpSystem/S-1-5-21-3980317125-2991037478-2579826307-1003/AppData/Local/Pa
-ckages/MikTex/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
-Output written on Prasentation.pdf (30 pages, 1572740 bytes).
+ckages/MikTex/fonts/type1/public/amsfonts/cm/cmsy9.pfb><D:/WpSystem/S-1-5-21-39
+80317125-2991037478-2579826307-1003/AppData/Local/Packages/MikTex/fonts/type1/p
+ublic/amsfonts/cm/cmtt9.pfb>
+Output written on Prasentation.pdf (38 pages, 2793527 bytes).
 PDF statistics:
- 1056 PDF objects out of 1200 (max. 8388607)
- 70 named destinations out of 1000 (max. 500000)
- 426 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1331 PDF objects out of 1440 (max. 8388607)
+ 92 named destinations out of 1000 (max. 500000)
+ 479 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,127 @@
+import os
+import numpy as np
+import librosa
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
+import tensorflow as tf
+from tensorflow.keras import layers, models, callbacks
+import seaborn as sns
+import matplotlib.pyplot as plt
+import random
+
+# ================= SETTINGS =================
+base_path = "/content/final_audio_dataset"
+classes = ["non_gunshot", "gunshot"]
+n_samples_per_class = 3100
+n_mfcc = 40
+random_seed = 42
+
+# Pre-tuned hyperparameters
+LSTM_UNITS = 256
+DROPOUT = 0.25
+BATCH_SIZE = 72
+LEARNING_RATE = 5e-4
+EPOCHS = 50
+NOISE_STD = 0.03   # noise to MFCCs for augmentation
+
+# For consistent reproducibility
+random.seed(random_seed)
+np.random.seed(random_seed)
+tf.random.set_seed(random_seed)
+
+# ================= MFCC FEATURE EXTRACTION =================
+print("Extracting MFCC features...")
+X_list, y_list = [], []
+
+for cls_name in classes:
+    cls_folder = os.path.join(base_path, cls_name)
+    files = sorted([f for f in os.listdir(cls_folder) if f.endswith(".wav")])[:n_samples_per_class]
+
+    for file in files:
+        file_path = os.path.join(cls_folder, file)
+        audio, sr = librosa.load(file_path, sr=None)
+        mfcc = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
+        mfcc_mean = np.mean(mfcc.T, axis=0)
+        X_list.append(mfcc_mean)
+        y_list.append(cls_name)
+
+X = np.array(X_list)
+y = np.array(y_list)
+
+# Shuffle and encode
+indices = np.arange(len(y))
+np.random.shuffle(indices)
+X, y = X[indices], y[indices]
+
+le = LabelEncoder()
+y_encoded = le.fit_transform(y)
+
+# Split 60/20/20
+X_train, X_temp, y_train, y_temp = train_test_split(
+    X, y_encoded, test_size=0.4, random_state=random_seed, stratify=y_encoded
+)
+X_val, X_test, y_val, y_test = train_test_split(
+    X_temp, y_temp, test_size=0.5, random_state=random_seed, stratify=y_temp
+)
+
+# Reshape for LSTM input
+X_train_lstm = X_train[..., np.newaxis] + np.random.normal(0, NOISE_STD, X_train[..., np.newaxis].shape)
+X_val_lstm = X_val[..., np.newaxis]
+X_test_lstm = X_test[..., np.newaxis]
+
+# ================= MODEL DEFINITION =================
+def build_model(input_shape):
+    model = models.Sequential([
+        layers.Input(shape=input_shape),
+        layers.LSTM(LSTM_UNITS),
+        layers.Dense(128, activation='relu'),
+        layers.Dropout(DROPOUT),
+        layers.Dense(64, activation='relu'),
+        layers.Dropout(DROPOUT),
+        layers.Dense(2, activation='softmax')
+    ])
+    model.compile(
+        optimizer=tf.keras.optimizers.Adam(learning_rate=LEARNING_RATE),
+        loss='sparse_categorical_crossentropy',
+        metrics=['accuracy']
+    )
+    return model
+
+# ================= TRAINING =================
+model = build_model(X_train_lstm.shape[1:])
+early_cb = callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True, verbose=1)
+
+print("\nTraining started...\n")
+history = model.fit(
+    X_train_lstm, y_train,
+    validation_data=(X_val_lstm, y_val),
+    epochs=EPOCHS,
+    batch_size=BATCH_SIZE,
+    callbacks=[early_cb],
+    verbose=1
+)
+print("\nTraining complete ✅\n")
+
+# ================= EVALUATION =================
+loss, acc = model.evaluate(X_test_lstm, y_test, verbose=0)
+y_pred = np.argmax(model.predict(X_test_lstm, verbose=0), axis=1)
+cm = confusion_matrix(y_test, y_pred)
+
+# ================= FINAL CLEAN OUTPUT =================
+print(f"Loss : {loss:.4f}")
+print(f"Accuracy : {acc * 100:.2f}%")
+print("Confusion Matrix:")
+print(f"{cm[0][0]} {cm[0][1]}")
+print(f"{cm[1][0]} {cm[1][1]}")
+
+# ================= CONFUSION MATRIX PLOT =================
+plt.figure(figsize=(5, 4))
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
+            xticklabels=["Predicted: Non-Gunshot", "Predicted: Gunshot"],
+            yticklabels=["Actual: Non-Gunshot", "Actual: Gunshot"])
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.tight_layout()
+plt.show()

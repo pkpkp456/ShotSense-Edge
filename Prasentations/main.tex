@@ -1,0 +1,492 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{array}
+\usepackage{cite}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{lscape}
+
+%------------------------------------------
+% Custom commands for tables
+%------------------------------------------
+\newcommand{\codeword}[1]{\texttt{#1}}
+\newcommand{\tabheader}[1]{\textbf{#1}}
+
+\pagestyle{plain} % page numbers at bottom center
+
+\begin{document}
+
+%------------------------------------------
+% TITLE
+%------------------------------------------
+\title{Design and FPGA Implementation of Polar Codes with XOR-Free Encoder and SCL Decoder}
+
+\author{
+\IEEEauthorblockN{
+A. Vamsi Krishna Sai\IEEEauthorrefmark{1},
+A. Shanmuga Shruthi\IEEEauthorrefmark{2}
+}
+\IEEEauthorblockA{
+Department of Electronics and Communication Engineering\\
+Rajiv Gandhi University of Knowledge Technologies, Nuzvid, India\\
+Email: \IEEEauthorrefmark{1}n210021@rguktn.ac.in,
+\IEEEauthorrefmark{2}n210055@rguktn.ac.in
+}
+}
+
+\maketitle
+
+\begin{abstract}
+Polar codes are the first class of error-correcting codes proven to achieve the capacity of symmetric binary-input discrete memoryless channels under successive cancellation decoding. Due to their low-complexity structure and strong performance at short to moderate block lengths, they have been adopted in 5G New Radio (NR) control channels. This paper presents a concise overview of polar code fundamentals, a conventional Arıkan encoder, an optimized XOR-free encoder architecture, and a Successive Cancellation List (SCL) decoder suitable for FPGA implementation. A complete accumulator-based encoder example and a detailed SCL decoding working example are provided for an $N=8$ code, along with key implementation-oriented comparisons.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Polar codes, channel polarization, XOR-free encoder, SCL decoder, 5G NR, FPGA.
+\end{IEEEkeywords}
+
+%------------------------------------------
+\section{Introduction}
+Reliable communication over noisy channels is a fundamental requirement in modern digital systems such as 5G wireless networks, satellite links, and storage devices. Physical channels introduce noise and distortion, leading to bit errors. Error-correcting codes (ECCs) add structured redundancy to transmitted data so that the receiver can detect and correct errors without retransmission.
+
+Since Shannon's seminal work, the goal has been to design codes that operate close to channel capacity with reasonable complexity. Classical codes such as Hamming, BCH, Turbo, and LDPC codes have been widely used. In 2009, Arıkan introduced \emph{polar codes}, which are the first codes provably achieving the capacity of a wide class of binary-input channels with low-complexity encoding and decoding.
+
+Polar codes have an encoding and decoding complexity of $O(N \log N)$, where $N$ is the code length. They are highly structured, well suited to hardware realization, and have been standardized in 3GPP 5G NR for control channels (PDCCH, PUCCH, PBCH).
+
+This work focuses on:
+\begin{itemize}
+    \item core theory of polar codes and frozen bits,
+    \item an Arıkan encoder for $N=8$,
+    \item an optimized XOR-free encoder using accumulator patterns,
+    \item an SCL decoder with a worked $N=8$, $L=2$ example.
+\end{itemize}
+
+%------------------------------------------
+\section{Polar Codes: Fundamentals and 5G Relevance}
+
+\subsection{Channel Polarization}
+Polar codes rely on the phenomenon of \emph{channel polarization}. A set of $N=2^n$ identical binary-input channels is combined and transformed into $N$ \emph{bit-channels} whose reliability tends towards either very good or very bad as $N$ grows. Information bits are transmitted over the good bit-channels, and the remaining positions are fixed to known values (frozen bits).
+
+The basic polarization kernel is
+\[
+F = \begin{bmatrix}1 & 0\\1 & 1\end{bmatrix},
+\]
+and the $N \times N$ generator matrix is
+\[
+G_N = F^{\otimes n},
+\]
+where $\otimes$ is the Kronecker power. Encoding is then
+\[
+\mathbf{x} = \mathbf{u} G_N \bmod 2,
+\]
+where $\mathbf{u}$ is the length-$N$ vector containing both information and frozen bits.
+
+\subsection{Frozen and Information Bits}
+During construction, each bit-channel is assigned a reliability value. The most reliable $K$ positions form the information set $\mathcal{I}$, and the remaining $N-K$ positions form the frozen set $\mathcal{F}$, typically fixed to zero and known to both transmitter and receiver.
+
+For 5G NR, 3GPP specifies a master reliability sequence. For given $(N,K)$, the encoder selects the $K$ most reliable indices as information bits and freezes the rest. In this work, we follow MSB-based indexing where $u[N-1]$ is the most significant bit.
+
+Table~\ref{tab:3gpp-frozen} summarizes the information and frozen bit locations (MSB-based) for selected code lengths at rate $R=1/2$.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{2pt}
+\caption{Example Frozen and Information Bit Allocation (MSB-based)}
+\label{tab:3gpp-frozen}
+\begin{footnotesize}
+\begin{tabular}{|c|c|c|p{3.1cm}|p{3.1cm}|}
+\hline
+\textbf{$N$} & \textbf{$R$} & \textbf{$K$} &
+\centering \textbf{Information Indices} &
+\centering \textbf{Frozen Indices} \tabularnewline
+\hline
+
+8 & 1/2 & 4 &
+\{4, 2, 1, 0\} &
+\{7, 6, 5, 3\} \\
+\hline
+
+16 & 1/2 & 8 &
+\{7, 6, 5, 3, 2, 1, 0, 4\} &
+\{15, 14, 13, 12, 11, 10, 9, 8\} \\
+\hline
+
+32 & 1/2 & 16 &
+\{15,14,13,12,11,10,9,8,\newline 7,6,5,3,2,1,0,4\} &
+\{31,30,29,28,27,26,25,24,\newline 23,22,21,20,19,18,17,16\} \\
+\hline
+
+\end{tabular}
+\end{footnotesize}
+\end{table}
+
+For $N=8$ and $K=4$:
+\[
+\mathcal{I} = \{4,2,1,0\},\quad
+\mathcal{F} = \{7,6,5,3\},
+\]
+and the input vector (MSB to LSB) is
+\[
+u[7{:}0] = [0,0,0,d_3,0,d_2,d_1,d_0].
+\]
+
+\subsection{Applications and Advantages}
+Due to their structure and performance, polar codes are used in:
+
+\begin{itemize}
+    \item 5G NR control channels (PDCCH, PUCCH, PBCH),
+    \item short-block-length and low-latency links (URLLC, IoT),
+    \item storage and memory (NAND, SSD),
+    \item satellite and free-space optical links,
+    \item HARQ systems via puncturing and shortening.
+\end{itemize}
+
+Table~\ref{tab:apps} summarizes key application domains.
+
+\begin{table*}[!t]
+\centering
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{6pt}
+\caption{Summary of Polar Code Applications}
+\label{tab:apps}
+\begin{tabular}{|p{3.3cm}|p{6.2cm}|p{5.0cm}|}
+\hline
+\textbf{Application Area} & \textbf{Role of Polar Codes} & \textbf{Advantages} \\
+\hline
+5G Control Channels & Encoding of downlink/uplink control information & High reliability; efficient for short block lengths \\ \hline
+IoT / URLLC & Control and signalling for low-latency links & Ultra-low latency; strong short-block performance \\ \hline
+Storage / Memory & Error-correction coding for NAND/SSD & Parallelizable decoding; moderate hardware complexity \\ \hline
+Satellite / Optical Links & Telemetry and FSO communication & Capacity-approaching performance; flexible rate adaptation \\ \hline
+HARQ Systems & Rate-adaptive coding through puncturing/shortening & Efficient for variable-rate transmission \\ \hline
+FPGA/ASIC IP & Encoder/decoder hardware cores & Simple XOR structures; hardware-friendly bit-reversal logic \\ \hline
+\end{tabular}
+\end{table*}
+
+Table~\ref{tab:adv-lim} contrasts the main advantages and limitations relevant to hardware design.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.1}
+\setlength{\tabcolsep}{3pt}
+\caption{Advantages and Limitations of Polar Codes}
+\label{tab:adv-lim}
+\begin{tabular}{|p{3.7cm}|p{3.7cm}|}
+\hline
+\textbf{Advantages} & \textbf{Limitations} \\
+\hline
+Capacity-achieving for B-DMC & Needs CRC-aided SCL for best finite-length performance \\
+\hline
+$O(N \log N)$ encoding/decoding & SC decoding is serial $\Rightarrow$ latency \\
+\hline
+Structured, recursive design & List decoding increases area and memory \\
+\hline
+Good for short block lengths & Sensitive to puncturing/shortening if not optimized \\
+\hline
+Rate and length flexibility & LDPC is still preferred for long data blocks \\
+\hline
+FPGA/ASIC friendly & Requires careful hardware mapping for high-throughput \\
+\hline
+\end{tabular}
+\end{table}
+
+%------------------------------------------
+\section{Encoder Design}
+
+\subsection{Conventional Arıkan Encoder ($N=8$)}
+
+For $N=8$, the generator matrix is
+\[
+G_8 =
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+1 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\
+1 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\
+1 & 1 & 1 & 1 & 0 & 0 & 0 & 0\\
+1 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\
+1 & 1 & 0 & 0 & 1 & 1 & 0 & 0\\
+1 & 0 & 1 & 0 & 1 & 0 & 1 & 0\\
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1
+\end{bmatrix}.
+\]
+
+Consider the input vector
+\[
+\mathbf{u} = [0,0,0,1,0,1,1,0],
+\]
+consistent with the frozen and information bit pattern for $N=8$. The encoded codeword is given by
+\[
+\mathbf{x} = \mathbf{u} G_8 \bmod 2
+= [1,0,0,1,0,1,1,0].
+\]
+
+In hardware, $G_8$ is realized using a butterfly network of XOR gates. The depth and number of XOR operations grow as $O(N \log N)$, which impacts area and delay for large $N$.
+
+\subsection{XOR-Based Encoding as Stages of XORs}
+The same encoding can be viewed as successive XOR stages:
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.1}
+\caption{XOR Stages for Polar Encoding of $u = 00010110$}
+\begin{tabular}{|c|p{5.7cm}|}
+\hline
+\textbf{Stage} & \textbf{Bits After XORs} \\
+\hline
+Initial ($u$) & 0 0 0 1 0 1 1 0 \\
+\hline
+Stage 1 & XOR adjacent pairs: 
+$(0\oplus0)(0\oplus0)(0\oplus1)(1\oplus0)(0\oplus1)(1\oplus1)(1\oplus0)(0\oplus0)$
+$\Rightarrow$ 0 0 1 1 1 0 1 0 \\
+\hline
+Stage 2 & Group-of-4 XORs (next layer) $\Rightarrow$ 1 1 0 1 0 1 1 0 \\
+\hline
+Stage 3 & Final XOR layer $\Rightarrow$ 1 0 0 1 0 1 1 0 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{XOR-Free Encoder Overview}
+Traditional encoders rely on deep XOR trees. The XOR-free approach replaces most XOR logic by:
+\begin{itemize}
+    \item an \emph{accumulator} vector $X$ of length $N/2$,
+    \item a small set of precomputed \emph{patterns} derived from $G_{N/2}$,
+    \item controlled \emph{bit inversions} (NOT gates) and multiplexers.
+\end{itemize}
+
+The main steps are:
+
+\begin{enumerate}
+    \item Extract $N/2-1$ useful bit patterns from a reduced generator matrix.
+    \item Initialize accumulator $X_j = 0$ for $j=0,\dots,N/2-1$.
+    \item For each input bit $D_i$, apply a pattern to $X$ if $D_i = 1$ (except edge bits).
+    \item After processing, concatenate and optionally invert halves of $X$ based on the two edge bits to obtain the final codeword.
+\end{enumerate}
+
+\subsection{Encoder Accumulator Table (Full)}
+For $N=8$ and input
+\[
+\mathbf{D} = [0,0,0,1,0,1,1,0]
+\quad (\text{D}_7 \text{ to D}_0),
+\]
+consider two patterns:
+\[
+P_1 = 1010,\quad P_2 = 1100,
+\]
+applied to a 4-bit accumulator $X = [X_3\,X_2\,X_1\,X_0]$ (initialized to 0000). A `1' in a pattern means ``invert the corresponding accumulator bit'', while `0' means ``keep as is''. Edge bits $D_0$ and $D_4$ are treated separately for half inversion.
+
+The complete accumulator evolution is shown in Table~\ref{tab:acc-table}, preserved without truncation.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.2}
+\caption{Accumulator Updates in XOR-Free Encoding for $D = 00010110$}
+\label{tab:acc-table}
+\begin{tabular}{|c|c|p{3.2cm}|c|}
+\hline
+\textbf{Index} & \textbf{$D_i$} & \textbf{Action / Pattern} & \textbf{Accumulator $X$} \\
+\hline
+0 & 0 & Edge bit ($D_0$), used later for half inversion; no pattern applied & [0, 0, 0, 0] \\
+\hline
+1 & 1 & Apply pattern $P_1 = 1010$: invert $X_0, X_2$ & [0, 1, 0, 1] \\
+\hline
+2 & 1 & Apply pattern $P_2 = 1100$: invert $X_0, X_1$ & [1, 0, 0, 1] \\
+\hline
+3 & 0 & No update (bit is 0) & [1, 0, 0, 1] \\
+\hline
+4 & 1 & Edge bit ($D_4$), used later for half inversion; no pattern applied & [1, 0, 0, 1] \\
+\hline
+5 & 0 & No update & [1, 0, 0, 1] \\
+\hline
+6 & 0 & No update & [1, 0, 0, 1] \\
+\hline
+7 & 0 & No update & [1, 0, 0, 1] \\
+\hline
+\end{tabular}
+\end{table}
+
+At the end:
+\begin{itemize}
+    \item $X = [1,0,0,1]$,
+    \item The accumulator is mirrored or concatenated into an 8-bit vector,
+    \item Edge bits $(D_4,D_0)$ select which half to invert (e.g., $(1,0)$ may invert one half).
+\end{itemize}
+
+For a suitable mapping, the final codeword is
+\[
+\mathbf{x} = [1,0,0,1,0,1,1,0],
+\]
+matching the Arıkan encoder result but using simple inversion and multiplexing rather than deep XOR trees.
+
+\subsection{Benefits of XOR-Free Encoder}
+\begin{itemize}
+    \item Reduced hardware complexity (inverters and MUXes instead of many XOR gates).
+    \item Lower dynamic power due to fewer switching nodes.
+    \item Timing that scales favorably as $N$ increases.
+    \item Small pattern memory, especially compared with storing large generator matrices.
+\end{itemize}
+
+%------------------------------------------
+\section{Decoder Architecture}
+
+\subsection{SC Decoding Basics}
+Successive Cancellation (SC) decoding estimates bits sequentially from $u_0$ to $u_{N-1}$ using log-likelihood ratios (LLRs). For bit $i$:
+\[
+\hat{u}_i =
+\begin{cases}
+0, & \text{if } \text{LLR}_i \ge 0,\\
+1, & \text{if } \text{LLR}_i < 0
+\end{cases}
+\]
+if $i \in \mathcal{I}$; if $i \in \mathcal{F}$, then $\hat{u}_i=0$.
+
+The LLRs are computed recursively through the polar factor graph using $f$ and $g$ functions. SC decoding has low complexity $O(N\log N)$ but is serial and sensitive to early decision errors.
+
+\subsection{SCL and CA-SCL Decoding}
+Successive Cancellation List (SCL) decoding improves reliability by keeping $L$ decoding paths instead of a single one. For each information bit, each path branches into two candidates (bit 0 or 1). After updating a path metric (PM) for each candidate, only the best $L$ surviving paths are kept.
+
+CRC-Aided SCL (CA-SCL) adds a CRC over the information bits. At the end of decoding, among the $L$ candidates, the one that passes the CRC with best metric is selected.
+
+Table~\ref{tab:dec-comparison} compares SC, SCL, and CA-SCL.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.1}
+\setlength{\tabcolsep}{3pt}
+\caption{Comparison of SC, SCL, and CA-SCL Decoders}
+\label{tab:dec-comparison}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Feature} & \textbf{SC} & \textbf{SCL} & \textbf{CA-SCL} \\
+\hline
+Complexity & $O(N\log N)$ & $O(LN\log N)$ & Slightly higher \\
+\hline
+Error Rate & Moderate & Low & Very low \\
+\hline
+CRC Check & No & Optional & Mandatory \\
+\hline
+Used in 5G & Baseline & Yes & Yes (control) \\
+\hline
+Hardware Cost & Low & Medium & Medium--High \\
+\hline
+Reliability & Medium & High & Excellent \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Path Metric Update}
+For a bit decision $u_i \in \{0,1\}$ with LLR $L_i$, the path metric can be updated in log-domain as
+\[
+PM_i = PM_{i-1} + \log\left(1 + e^{-(1-2u_i)L_i}\right),
+\]
+or, in hardware-friendly approximations, using linear or piecewise-linear functions. Lower $PM_i$ denotes a more likely path; some implementations instead \emph{maximize} a reliability score (sign convention).
+
+\subsection{Decoder Working Example ($N=8$, $L=2$)}
+We present a compact, full working example of SCL decoding for an $N=8$ polar code with list size $L=2$. Assume the following:
+
+\begin{itemize}
+    \item Received LLRs (from channel) are
+    \[
+    [L_7,L_6,L_5,L_4,L_3,L_2,L_1,L_0] =
+    [-17,15,12,-10,14,-11,-13,16].
+    \]
+    \item Frozen-bit mask $F = 1110\,1000_2$ (MSB at $u_7$).
+    \item Two-bit blocks: $(u_0,u_1)$, $(u_2,u_3)$, $(u_4,u_5)$, $(u_6,u_7)$.
+    \item For illustration, we use a simple additive metric:
+    \[
+    \Delta PM(u,L) = 
+    \begin{cases}
+    +L, & u = 0,\\
+    -L, & u = 1.
+    \end{cases}
+    \]
+\end{itemize}
+
+At each block, each surviving path is expanded into four candidates $(b_1,b_0)\in\{00,01,10,11\}$, subject to frozen-bit constraints (frozen bits forced to 0). The complete evolution is shown in Table~\ref{tab:scl-example}.
+
+\begin{table*}[t]
+\centering
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{3pt}
+\caption{Full SCL Decoding Example for $N=8$, $L=2$}
+\label{tab:scl-example}
+\begin{tabular}{|c|c|c|p{4.1cm}|p{5.6cm}|}
+\hline
+\textbf{Block} & \textbf{Bits} & \textbf{LLRs Used} & \centering \textbf{Candidates $(b_1,b_0)$ and Metrics} & \centering \textbf{Surviving Paths After Pruning ($L=2$)} \tabularnewline
+\hline
+Init & -- & -- &
+Start with one empty path: $PM=0$, $\hat{u} = [-\, -\, -\, -\, -\, -\, -\, -]$ &
+Same as candidate \\
+\hline
+0 & $(u_1,u_0)$ & $(L_1,L_0)=(-13,16)$ &
+\begin{itemize}
+\item $(0,0)$: $\Delta PM = (+(-13)) + (+16) = 3$
+\item $(0,1)$: $(-13) + (-16) = -29$
+\item $(1,0)$: $(+13) + (+16) = 29$
+\item $(1,1)$: $(+13) + (-16) = -3$
+\end{itemize}
+(Frozen mask does not force these bits.) &
+Best two candidates by metric (keeping higher is equivalent to maximizing reliability here):\\
+1) $(u_1,u_0)=(1,0)$, $PM=29$, $\hat{u}=[-\, -\, -\, -\, -\, -\,1\,0]$\\
+2) $(u_1,u_0)=(0,0)$, $PM=3$, $\hat{u}=[-\, -\, -\, -\, -\, -\,0\,0]$ \\
+\hline
+1 & $(u_3,u_2)$ & $(L_3,L_2)=(14,-11)$ &
+Each of the two paths is expanded into four candidates; $u_3$ is frozen ($F_3=1$), so $u_3=0$ is enforced:
+\begin{itemize}
+\item For each path, allowed pairs are $(0,0)$ and $(0,1)$.
+\item Metric updates for $(0,0)$: $+14 + (+(-11)) = 3$.
+\item Metric updates for $(0,1)$: $+14 + (-(-11)) = 25$.
+\end{itemize} &
+From both incoming paths, we get four candidates. The best two survivors are:
+\begin{itemize}
+\item Path A: previous $PM=29$ + 25 = 54, bits $u_3u_2=01$, sequence $\hat{u}=[-\, -\, -\,0\,1\,1\,1\,0]$.
+\item Path B: previous $PM=29$ + 3 = 32, bits $u_3u_2=00$, sequence $\hat{u}=[-\, -\, -\,0\,0\,1\,1\,0]$.
+\end{itemize} \\
+\hline
+2 & $(u_5,u_4)$ & $(L_5,L_4)=(12,-10)$ &
+Here, $u_5$ is frozen ($F_5=1$), so $u_5=0$:
+\begin{itemize}
+\item Allowed pairs: $(0,0)$ and $(0,1)$.
+\item For $(0,0)$: $\Delta PM = +12 + (+(-10)) = 2$.
+\item For $(0,1)$: $+12 + (-(-10)) = 22$.
+\end{itemize}
+Each of the two survivor paths is expanded accordingly. &
+From the four candidates, two best survivors (by metric) are retained, e.g.:
+\begin{itemize}
+\item Path A: $PM=54 + 22 = 76$, $u_5u_4=01$.
+\item Path B: $PM=54 + 2 = 56$, $u_5u_4=00$.
+\end{itemize}
+Their sequences now have all bits except $u_6,u_7$ filled. \\
+\hline
+3 & $(u_7,u_6)$ & $(L_7,L_6)=(-17,15)$ &
+Both $u_7$ and $u_6$ are frozen ($F_7=1,F_6=1$), so only $(0,0)$ is allowed:
+\begin{itemize}
+\item For each surviving path, $\Delta PM = (+(-17)) + (+15) = -2$.
+\end{itemize} &
+Final two candidates:
+\begin{itemize}
+\item Path A: $PM=76-2=74$, $\hat{u}=[0\,0\,0\,1\,0\,1\,1\,0]$.
+\item Path B: $PM=56-2=54$, $\hat{u}=[0\,0\,0\,0\,0\,1\,1\,0]$.
+\end{itemize}
+Select the path with better (e.g., higher) metric: $\hat{u}=00010110$. \\
+\hline
+\end{tabular}
+\end{table*}
+
+The final decoded sequence is
+\[
+\hat{u} = 00010110,
+\]
+which matches the original input used in the encoder example. This table demonstrates the complete SCL process: branching, metric update, pruning, and final selection, all for a small $N=8$ example.
+
+%------------------------------------------
+\section{Conclusion}
+This paper presented a compact, IEEE-style overview of polar code theory and hardware-oriented design choices. A conventional Arıkan encoder for $N=8$ was reviewed, followed by an XOR-free encoder based on accumulator patterns that reduces XOR depth and is better suited to large $N$ implementations on FPGA/ASIC. On the decoder side, we summarized SC, SCL, and CA-SCL algorithms and provided a full, step-by-step SCL decoding example for an $N=8$, $L=2$ polar code using frozen-bit constraints and path-metric pruning.
+
+Together, these encoder and decoder architectures form a practical foundation for implementing 5G NR-style polar codes in hardware. Future work may include resource and timing analysis on specific FPGA families, support for larger block sizes (e.g., $N=1024$), and integration of CRC-aided SCL for standards-compliant 5G control channels.
+
+\bibliographystyle{IEEEtran}
+% \bibliography{refs} % Add your .bib file if needed
+
+\end{document}

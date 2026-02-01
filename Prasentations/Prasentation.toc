@@ -1,7 +1,8 @@
 \beamer@sectionintoc {1}{Abstract}{3}{0}{1}
-\beamer@sectionintoc {2}{Introduction}{5}{0}{2}
-\beamer@sectionintoc {4}{Base Paper Overview}{8}{0}{3}
-\beamer@sectionintoc {5}{Model Advancements}{14}{0}{4}
-\beamer@sectionintoc {6}{Result}{19}{0}{5}
-\beamer@sectionintoc {7}{Implementation}{22}{0}{6}
-\beamer@sectionintoc {8}{Comparison With Base Paper}{25}{0}{7}
+\beamer@sectionintoc {2}{Base Paper Overview}{7}{0}{2}
+\beamer@sectionintoc {3}{Results Obtained}{15}{0}{3}
+\beamer@sectionintoc {4}{Model Advancements}{20}{0}{4}
+\beamer@sectionintoc {5}{Result}{25}{0}{5}
+\beamer@sectionintoc {6}{Implementation}{28}{0}{6}
+\beamer@sectionintoc {7}{Comparison With Base Paper}{31}{0}{7}
+\beamer@sectionintoc {8}{References}{36}{0}{8}
