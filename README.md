@@ -62,7 +62,8 @@ The high-level pipeline consists of the following stages:
 ├── .settings/               # IDE configuration files
 ├── GitHub_Paper.txt         # IEEE paper draft or references
 └── README.md                # Project documentation
-
+```
+---
 
 ## 📅 Enhanced Actionable Plan & Roadmap
 
